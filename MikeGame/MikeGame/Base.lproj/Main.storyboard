@@ -16,23 +16,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PxI-2u-u2N">
-                                <rect key="frame" x="276" y="704" width="106" height="143"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="282" y="747" width="100" height="100"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="106" id="e2b-Ip-l06"/>
-                                    <constraint firstAttribute="height" constant="143" id="xfN-Fd-bso"/>
+                                    <constraint firstAttribute="width" constant="100" id="e2b-Ip-l06"/>
+                                    <constraint firstAttribute="height" constant="100" id="xfN-Fd-bso"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spacehelmet" translatesAutoresizingMaskIntoConstraints="NO" id="cZb-0R-Xlq">
+                                <rect key="frame" x="195" y="677.5" width="254" height="199"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="199" id="1pk-dz-ZrQ"/>
+                                    <constraint firstAttribute="width" constant="254" id="cXa-Nl-2eX"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PxI-2u-u2N" secondAttribute="bottom" constant="15" id="Saw-tz-Bce"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PxI-2u-u2N" secondAttribute="trailing" constant="32" id="W0F-O4-a1c"/>
+                            <constraint firstItem="cZb-0R-Xlq" firstAttribute="centerY" secondItem="PxI-2u-u2N" secondAttribute="centerY" constant="-20" id="n2m-Gk-x00"/>
+                            <constraint firstItem="cZb-0R-Xlq" firstAttribute="centerX" secondItem="PxI-2u-u2N" secondAttribute="centerX" constant="-10" id="udh-RH-jth"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="cameraHolderView" destination="PxI-2u-u2N" id="GPG-NG-jUL"/>
+                        <outlet property="spaceHelmet" destination="cZb-0R-Xlq" id="bSZ-Bf-zZX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -40,4 +50,7 @@
             <point key="canvasLocation" x="137.68115942028987" y="117.85714285714285"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="spacehelmet" width="337" height="405.5"/>
+    </resources>
 </document>

@@ -9,9 +9,17 @@
 import Foundation
 import AVFoundation
 import UIKit
+import Vision
+
+protocol CameraViewDelegate : class{
+    func faceDetected()
+    func faceNotDetected()
+}
 
 final class CameraView: UIView {
 
+    weak var delegate: CameraViewDelegate?
+    
     private lazy var videoDataOutput: AVCaptureVideoDataOutput = {
         let v = AVCaptureVideoDataOutput()
         v.alwaysDiscardsLateVideoFrames = true
@@ -28,6 +36,7 @@ final class CameraView: UIView {
     }()
 
     private let captureDevice: AVCaptureDevice? = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+    
     private lazy var session: AVCaptureSession = {
         let s = AVCaptureSession()
         s.sessionPreset = .vga640x480
@@ -67,6 +76,7 @@ final class CameraView: UIView {
             layer.masksToBounds = true
             layer.addSublayer(previewLayer)
             previewLayer.frame = bounds
+            //self.getCameraFrames()
             session.startRunning()
         } catch let error {
             debugPrint("\(self.self): \(#function) line: \(#line).  \(error.localizedDescription)")
@@ -77,6 +87,45 @@ final class CameraView: UIView {
         super.layoutSubviews()
         previewLayer.frame = bounds
     }
+    
+    //MARK: - face detection
+    //
+    
+    private func detectFace(in image: CVPixelBuffer) {
+        let faceDetectionRequest = VNDetectFaceLandmarksRequest(completionHandler: { (request: VNRequest, error: Error?) in
+            DispatchQueue.main.async {
+                if let results = request.results as? [VNFaceObservation], results.count > 0 {
+                    self.delegate?.faceDetected()
+                    print("did detect \(results.count) face(s)")
+                } else {
+                    self.delegate?.faceNotDetected()
+                    print("did not detect any face")
+                }
+            }
+        })
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: image, orientation: .leftMirrored, options: [:])
+        try? imageRequestHandler.perform([faceDetectionRequest])
+    }
 }
 
-extension CameraView: AVCaptureVideoDataOutputSampleBufferDelegate {}
+extension CameraView: AVCaptureVideoDataOutputSampleBufferDelegate {
+    
+    private func getCameraFrames() {
+        self.videoDataOutput.videoSettings = [(kCVPixelBufferPixelFormatTypeKey as NSString) : NSNumber(value: kCVPixelFormatType_32BGRA)] as [String : Any]
+        self.videoDataOutput.alwaysDiscardsLateVideoFrames = true
+        self.videoDataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "camera_frame_processing_queue"))
+        self.session.addOutput(self.videoDataOutput)
+        guard let connection = self.videoDataOutput.connection(with: AVMediaType.video),
+            connection.isVideoOrientationSupported else { return }
+        connection.videoOrientation = .portrait
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer,
+        from connection: AVCaptureConnection) {
+            guard let frame = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+                debugPrint("unable to get image from sample buffer")
+                return
+            }
+        self.detectFace(in: frame)
+    }
+}
