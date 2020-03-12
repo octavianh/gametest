@@ -60,14 +60,30 @@
 			children = (
 				0E5DCF5F2419B7D700A92AE2 /* AppDelegate.swift */,
 				0E5DCF612419B7D700A92AE2 /* SceneDelegate.swift */,
-				0E5DCF632419B7D700A92AE2 /* ViewController.swift */,
-				0E5DCF732419BF0100A92AE2 /* CameraView.swift */,
+				0E5DCF752419CDB600A92AE2 /* View Controllers */,
+				0E5DCF762419CDCA00A92AE2 /* Views */,
 				0E5DCF652419B7D700A92AE2 /* Main.storyboard */,
 				0E5DCF682419B7D800A92AE2 /* Assets.xcassets */,
 				0E5DCF6A2419B7D800A92AE2 /* LaunchScreen.storyboard */,
 				0E5DCF6D2419B7D800A92AE2 /* Info.plist */,
 			);
 			path = MikeGame;
+			sourceTree = "<group>";
+		};
+		0E5DCF752419CDB600A92AE2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0E5DCF632419B7D700A92AE2 /* ViewController.swift */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
+		0E5DCF762419CDCA00A92AE2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				0E5DCF732419BF0100A92AE2 /* CameraView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
