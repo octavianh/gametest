@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController{
+class ViewController: UIViewController {
 
     @IBOutlet var cameraHolderView: UIView!
     @IBOutlet var spaceHelmet:UIImageView!
@@ -40,24 +40,24 @@ class ViewController: UIViewController{
     
     //MARK: - view manip
     //
-    func roundCameraPreviewCorners(_ shouldRound: Bool){
+    func roundCameraPreviewCorners(_ shouldRound: Bool) {
         shouldRound ? roundCornersForPreview() : squareCornersForPreview()
     }
     
-    func roundCornersForPreview(){
+    func roundCornersForPreview() {
         cameraView?.clipsToBounds = true
         cameraView?.layer.cornerRadius = (cameraView?.frame.size.height ?? 0)/2
     }
     
-    func squareCornersForPreview(){
+    func squareCornersForPreview() {
         cameraView?.layer.cornerRadius = 0
     }
     
-    func showSpaceManHelmet(_ shouldShow: Bool){
+    func showSpaceManHelmet(_ shouldShow: Bool) {
         shouldShow ? showHelmet() : hideHelmet()
     }
     
-    func showHelmet(){
+    func showHelmet() {
         self.spaceHelmet.alpha = 1
         self.spaceHelmet.transform = CGAffineTransform(scaleX: 0.8, y: 0.7)
         UIView.animate(withDuration: 0.2, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowAnimatedContent, animations: {
@@ -65,7 +65,7 @@ class ViewController: UIViewController{
         }, completion: nil)
     }
     
-    func hideHelmet(){
+    func hideHelmet() {
         UIView.animate(withDuration: 0.1, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: .allowAnimatedContent, animations: {
             self.spaceHelmet.alpha = 0
         }, completion: nil)

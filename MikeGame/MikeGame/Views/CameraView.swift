@@ -11,7 +11,7 @@ import AVFoundation
 import UIKit
 import Vision
 
-protocol CameraViewDelegate : class{
+protocol CameraViewDelegate : class {
     func faceDetected()
     func faceNotDetected()
 }
